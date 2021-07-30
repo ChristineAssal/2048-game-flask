@@ -1,0 +1,60 @@
+<!--
+   https://getbootstrap.com/docs/5.0/forms/validation/
+   https://getbootstrap.com/docs/5.0/forms/layout/
+   -->
+{% extends "base.html" %} {% block body %}
+<div class="center">
+   <h2> Sign Up </h2>
+   <form method="POST" action="{{ url_for('register_post') }}">
+      <div class="row mb-2">
+         <label for="username">Username</label>
+         <div class="col-sm-12">
+            <input type="text" class="form-control" id="username" name="username" required >
+         </div>
+      </div>
+      <div class="row mb-2">
+         <label for="email">Email</label>
+         <div class="col-sm-12">
+            <input type="email" class="form-control" id="email" name ="email" required>
+         </div>
+      </div>
+      <div class="row mb-2">
+         <label for="password">Password</label>
+         <div class="col-sm-12">
+            <input type="password" class="form-control" id="password" name="password" required>
+         </div>
+      </div>
+      <fieldset class="row mb-2">
+         <div class="col-sm-12">
+            <div class="form-check">
+               <input type="radio" class="form-check-input" name = "role" value ="player" id="player" name="radio-stacked" onclick="roleCheck()"  required>
+               <label class="form-check-label" for="player"> Player </label>
+            </div>
+            <div class="form-check mb-3">
+               <input type="radio" class="form-check-input" name = "role"  value ="admin"  id="admin" name="radio-stacked" onclick="roleCheck()" required>
+               <label class="form-check-label" for="admin"> Admin</label>
+            </div>
+         </div>
+      </fieldset>
+      <div class="row mb-2" style= "visibility: hidden;" id="admin_div">
+      <label for="adminKey"> Admin Key</label>
+      <div class="col-sm-12">
+            <input type="numeric" class="form-control" id="adminKey" name="adminKey" >
+         </div>
+      </div>
+      <div class="col text-center">
+         <button type="submit" class="w-100 btn btn-lg btn-primary">Sign Up</button>
+      </div>
+   </form>
+</div>
+
+<script>
+   function roleCheck() {
+      if (document.getElementById('admin').checked) {
+         document.getElementById('admin_div').style.visibility = 'visible';
+      }
+      else document.getElementById('admin_div').style.visibility = 'hidden';
+
+   }
+</script>
+{% endblock %}

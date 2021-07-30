@@ -1,0 +1,32 @@
+<!-- https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Flask_Blog/03-Forms-and-Validation/templates/layout.html -->
+<!DOCTYPE html>
+<html>
+   <head>
+      {% block head %}
+      <title> 2048 </title>
+      <script src="{{url_for('static', filename='js/react.production.min.js')}}"></script>
+      <script src="{{url_for('static', filename='js/react-dom.production.min.js')}}"></script>
+      <script src="{{url_for('static', filename='js/babel.min.js')}}" charset="utf-8"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+      <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+      {% endblock %}
+   </head>
+   <body>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div id = name class="alert alert-{{ category }}">
+         {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      {% block body %}
+      {% endblock %}
+   </body>
+</html>

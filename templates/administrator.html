@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block body %}
+<main class = main>
+   <div class="logout">
+      <a href="{{ url_for('logout') }}" class="btn btn-primary">
+      Log Out
+      </a>
+   </div>
+   <div class = "container">
+      <h2> Winners </h2>
+      <table class="table" id="sortPlayers">
+         <thead>
+            <th>Username</th>
+            <th>Moves</th>
+            <th>Registration Date</th>
+         </thead>
+         <tbody>
+            {% for row in players_data %}
+            <tr>
+               <td>{{row.username}}</td>
+               <td>{{row.score}}</td>
+               <td>{{row.registrationDate}}</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      <br/><br/><br/>
+      <span class="badge bg-secondary" id = "users">Registered users : {{users_count}}</span>
+      <br/>
+      <span class="badge bg-success" id = "online">Online users : {{online_count}}</span>
+   </div>
+   <div class="col text-center">
+      <a href="{{ url_for('play') }}" class="btn btn-primary">
+      Click here to play </a>
+   </div>
+</main>
+<script>
+   $('#sortPlayers').DataTable();
+
+   $(document).ready(function() {
+    update();
+   });
+
+   function usersCount()
+   {
+        $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '/users_count',
+                success: function(data) {
+                }
+            })
+            .then(data =>document.getElementById("users").innerText = "Registered users : " + data)
+
+   }
+
+   function onlineCount()
+   {
+        $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: '/online_count',
+                success: function(data) {
+                }
+            })
+            .then(data =>document.getElementById("online").innerText = "Online users : " + data)
+
+   }
+
+   function update()
+   {
+        setInterval(e=>usersCount(),1000);
+        setInterval(e=>onlineCount(),1000);
+    }
+
+</script>
+{% endblock %}
